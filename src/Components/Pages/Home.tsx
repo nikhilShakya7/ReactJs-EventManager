@@ -11,7 +11,7 @@ const Home = () => {
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <Link
-            to="/add-event"
+            to="/AddEvent"
             className="bg-white rounded-xl shadow-md p-6 hover:shadow-lg transition-all duration-200 border border-gray-100 hover:border-blue-100"
           >
             <h2 className="text-xl font-semibold text-gray-700 mb-2">
