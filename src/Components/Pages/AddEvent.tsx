@@ -1,5 +1,6 @@
 import React, { useState, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
+import { useEvents } from "../../Context/EventContext";
 
 type EventData = {
   title: string;
@@ -11,6 +12,8 @@ type EventData = {
 
 const AddEvent: React.FC = () => {
   const navigate = useNavigate();
+  const { addEvent } = useEvents();
+  const [events, setEvents] = useState<EventData[]>([]);
 
   const [eventData, setEventData] = useState<EventData>({
     title: "",
@@ -31,11 +34,13 @@ const AddEvent: React.FC = () => {
   const handleSubmit = useCallback(
     (e: React.FormEvent) => {
       e.preventDefault();
+      addEvent(eventData);
+      setEvents((prev) => [...prev, eventData]);
       console.log("Event submitted:", eventData);
       alert("Event created successfully!");
-      navigate("ViewEvent");
+      navigate("/ViewEvent");
     },
-    [eventData, navigate]
+    [eventData, addEvent, navigate]
   );
 
   return (
