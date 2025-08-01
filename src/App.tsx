@@ -1,7 +1,16 @@
-import React from "react";
-
+import { Routes, Route } from "react-router-dom";
+import Home from "./Components/Pages/Home";
+import Header from "./Components/Header";
 const App = () => {
-  return <div>Event Manager</div>;
+  return (
+    <>
+      <Header />
+
+      <Routes>
+        <Route path="/" element={<Home />} />
+      </Routes>
+    </>
+  );
 };
 
 export default App;
