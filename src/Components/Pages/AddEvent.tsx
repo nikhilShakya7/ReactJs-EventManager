@@ -1,6 +1,7 @@
 import React, { useState, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import { useEvents } from "../../Context/EventContext";
+import { v4 as uuidv4 } from "uuid";
 
 type EventData = {
   title: string;
@@ -34,9 +35,10 @@ const AddEvent: React.FC = () => {
   const handleSubmit = useCallback(
     (e: React.FormEvent) => {
       e.preventDefault();
-      addEvent(eventData);
-      setEvents((prev) => [...prev, eventData]);
-      console.log("Event submitted:", eventData);
+      const eventWithId = { ...eventData, id: uuidv4() };
+      addEvent(eventWithId);
+      setEvents((prev) => [...prev, eventWithId]);
+      console.log("Event submitted:", eventWithId);
       alert("Event created successfully!");
       navigate("/ViewEvent");
     },

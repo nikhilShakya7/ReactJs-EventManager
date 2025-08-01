@@ -42,7 +42,7 @@ const Home = () => {
             <div className="mt-4 text-purple-500 font-medium">View all →</div>
           </Link>
           <Link
-            to="/events"
+            to="/DeleteEvent"
             className="bg-white rounded-xl shadow-md p-6 hover:shadow-lg transition-all duration-200 border border-gray-100 hover:border-green-100"
           >
             <h2 className="text-xl font-semibold text-gray-700 mb-2">

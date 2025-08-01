@@ -3,6 +3,7 @@ import Home from "./Components/Pages/Home";
 import Header from "./Components/Header";
 import AddEvent from "./Components/Pages/AddEvent";
 import ViewEvent from "./Components/Pages/ViewEvent";
+import DeleteEvent from "./Components/Pages/DeleteEvent";
 const App = () => {
   return (
     <>
@@ -12,6 +13,7 @@ const App = () => {
         <Route path="/" element={<Home />} />
         <Route path="/AddEvent" element={<AddEvent />} />
         <Route path="/ViewEvent" element={<ViewEvent />} />
+        <Route path="/DeleteEvent" element={<DeleteEvent />} />
       </Routes>
     </>
   );

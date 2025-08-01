@@ -1,6 +1,8 @@
 import React, { createContext, useContext, useState } from "react";
+import { v4 as uuidv4 } from "uuid";
 
 type EventData = {
+  id: string;
   title: string;
   date: string;
   time: string;
@@ -8,9 +10,12 @@ type EventData = {
   description: string;
 };
 
+type EventInput = Omit<EventData, "id">;
+
 type EventContextType = {
   events: EventData[];
-  addEvent: (event: EventData) => void;
+  addEvent: (event: EventInput) => void;
+  deleteEvent: (id: string) => void;
 };
 
 const EventContext = createContext<EventContextType | undefined>(undefined);
@@ -20,12 +25,17 @@ export const EventProvider: React.FC<{ children: React.ReactNode }> = ({
 }) => {
   const [events, setEvents] = useState<EventData[]>([]);
 
-  const addEvent = (event: EventData) => {
-    setEvents((prev) => [...prev, event]);
+  const addEvent = (event: EventInput) => {
+    const newEvent: EventData = { ...event, id: uuidv4() };
+    setEvents((prev) => [...prev, newEvent]);
+  };
+
+  const deleteEvent = (id: string) => {
+    setEvents((prev) => prev.filter((event) => event.id !== id));
   };
 
   return (
-    <EventContext.Provider value={{ events, addEvent }}>
+    <EventContext.Provider value={{ events, addEvent, deleteEvent }}>
       {children}
     </EventContext.Provider>
   );

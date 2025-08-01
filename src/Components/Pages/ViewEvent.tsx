@@ -3,6 +3,7 @@ import { useEvents } from "../../Context/EventContext";
 import {
   CalendarCheck2,
   CalendarClock,
+  CalendarPlus,
   Info,
   MapPin,
   Trash,
@@ -10,7 +11,12 @@ import {
 import { Link } from "react-router-dom";
 
 const ViewEvents: React.FC = () => {
-  const { events } = useEvents();
+  const { events, deleteEvent } = useEvents();
+  const handleDelete = (id: string) => {
+    if (confirm("Are you sure you want to delete this event?")) {
+      deleteEvent(id);
+    }
+  };
 
   return (
     <div className="max-w-4xl mx-auto p-4 sm:p-6">
@@ -19,6 +25,12 @@ const ViewEvents: React.FC = () => {
         <span className="bg-blue-100 text-blue-800 text-sm font-medium px-3 py-1 rounded-full">
           {events.length} {events.length === 1 ? "Event" : "Events"}
         </span>
+        <Link to="/AddEvent">
+          <button className="flex items-center gap-2 px-3 py-1.5 text-sm font-semibold text-white bg-blue-500 hover:bg-blue-600 cursor-pointer rounded-md shadow-md">
+            <CalendarPlus />
+            Add More
+          </button>
+        </Link>
       </div>
 
       {events.length === 0 ? (
@@ -99,18 +111,21 @@ const ViewEvents: React.FC = () => {
                   <div className="mt-4 pt-4 border-t border-gray-100">
                     <p className="text-sm text-gray-500 mb-2">Description</p>
                     <p className="text-gray-700">{event.description}</p>
+                    <div className="flex justify-end gap-4">
+                      <button className="px-4 py-2 text-sm font-semibold text-white bg-green-500 hover:bg-green-600 cursor-pointer rounded-md ">
+                        Update
+                      </button>
+
+                      <button
+                        onClick={() => handleDelete(event.id)}
+                        className="flex items-center gap-2 px-4 py-2 text-sm font-semibold text-white bg-red-500 hover:bg-red-600 cursor-pointer rounded-md shadow-md"
+                      >
+                        <Trash className="w-4 h-4" />
+                        Delete
+                      </button>
+                    </div>
                   </div>
                 )}
-                <div className="flex justify-end gap-4 mt-6">
-                  <button className="px-4 py-2 text-sm font-semibold text-white bg-green-500 hover:bg-green-600 cursor-pointer rounded-md ">
-                    Update
-                  </button>
-
-                  <button className="flex items-center gap-2 px-4 py-2 text-sm font-semibold text-white bg-red-500 hover:bg-red-600 cursor-pointer rounded-md shadow-md">
-                    <Trash className="w-4 h-4" />
-                    Delete
-                  </button>
-                </div>
               </div>
             </div>
           ))}
