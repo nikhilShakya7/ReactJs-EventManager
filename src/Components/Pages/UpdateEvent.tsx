@@ -9,7 +9,7 @@ import {
 } from "lucide-react";
 import { Link } from "react-router-dom";
 
-const DeleteEvent: React.FC = () => {
+const UpdateEvent: React.FC = () => {
   const { events, deleteEvent } = useEvents();
   const handleDelete = (id: string) => {
     if (confirm("Are you sure you want to delete this event?")) {
@@ -55,13 +55,6 @@ const DeleteEvent: React.FC = () => {
                     <h3 className="text-lg font-bold text-black  line-clamp-2">
                       {event.title}
                     </h3>
-                    <button
-                      onClick={() => handleDelete(event.id)}
-                      className="p-2 text-gray-500 hover:text-red-500 "
-                      aria-label="Delete event"
-                    >
-                      <Trash className="w-5 h-5" />
-                    </button>
                   </div>
 
                   <div className="flex flex-wrap gap-2">
@@ -101,13 +94,11 @@ const DeleteEvent: React.FC = () => {
                     </div>
                   )}
                   <div className="flex justify-end gap-4 mt-6 ">
-                    <button
-                      onClick={() => handleDelete(event.id)}
-                      className="flex items-center justify-center gap-2 px-4 py-2 text-sm font-semibold w-full text-white bg-red-500 hover:bg-red-600 cursor-pointer rounded-md shadow-md"
-                    >
-                      <Trash className="w-4 h-4" />
-                      Delete
-                    </button>
+                    <Link to={`/UpdateEventForm/${event.id}`}>
+                      <button className="flex items-center justify-center gap-2 px-4 py-2 text-sm font-semibold w-full text-white bg-red-500 hover:bg-red-600 cursor-pointer rounded-md shadow-md">
+                        Update
+                      </button>
+                    </Link>
                   </div>
                 </div>
               </div>
@@ -119,4 +110,4 @@ const DeleteEvent: React.FC = () => {
   );
 };
 
-export default DeleteEvent;
+export default UpdateEvent;

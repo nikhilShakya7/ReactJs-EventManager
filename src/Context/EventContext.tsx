@@ -16,6 +16,7 @@ type EventContextType = {
   events: EventData[];
   addEvent: (event: EventInput) => void;
   deleteEvent: (id: string) => void;
+  updateEvent: (updatedEvent: EventData) => void;
 };
 
 const EventContext = createContext<EventContextType | undefined>(undefined);
@@ -33,9 +34,16 @@ export const EventProvider: React.FC<{ children: React.ReactNode }> = ({
   const deleteEvent = (id: string) => {
     setEvents((prev) => prev.filter((event) => event.id !== id));
   };
+  const updateEvent = (updatedEvent: EventData) => {
+    setEvents((prev) =>
+      prev.map((event) => (event.id === updatedEvent.id ? updatedEvent : event))
+    );
+  };
 
   return (
-    <EventContext.Provider value={{ events, addEvent, deleteEvent }}>
+    <EventContext.Provider
+      value={{ events, addEvent, deleteEvent, updateEvent }}
+    >
       {children}
     </EventContext.Provider>
   );

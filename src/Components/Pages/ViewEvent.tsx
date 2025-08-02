@@ -112,9 +112,11 @@ const ViewEvents: React.FC = () => {
                     <p className="text-sm text-gray-500 mb-2">Description</p>
                     <p className="text-gray-700">{event.description}</p>
                     <div className="flex justify-end gap-4">
-                      <button className="px-4 py-2 text-sm font-semibold text-white bg-green-500 hover:bg-green-600 cursor-pointer rounded-md ">
-                        Update
-                      </button>
+                      <Link to={`/UpdateEventForm/${event.id}`}>
+                        <button className="px-4 py-2 text-sm font-semibold text-white bg-green-500 hover:bg-green-600 cursor-pointer rounded-md ">
+                          Update
+                        </button>
+                      </Link>
 
                       <button
                         onClick={() => handleDelete(event.id)}
