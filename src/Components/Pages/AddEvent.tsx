@@ -9,6 +9,7 @@ type EventData = {
   time: string;
   location: string;
   description: string;
+  isCompleted?: boolean;
 };
 
 const AddEvent: React.FC = () => {
@@ -35,7 +36,7 @@ const AddEvent: React.FC = () => {
   const handleSubmit = useCallback(
     (e: React.FormEvent) => {
       e.preventDefault();
-      const eventWithId = { ...eventData, id: uuidv4() };
+      const eventWithId = { ...eventData, id: uuidv4(), isCompleted: false };
       addEvent(eventWithId);
       setEvents((prev) => [...prev, eventWithId]);
       console.log("Event submitted:", eventWithId);
@@ -73,7 +74,7 @@ const AddEvent: React.FC = () => {
                 type={type}
                 id={id}
                 name={id}
-                value={eventData[id as keyof EventData]}
+                value={String(eventData[id as keyof EventData])}
                 onChange={handleChange}
                 required
                 min={min}

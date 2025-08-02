@@ -16,6 +16,7 @@ const UpdateEvent = () => {
       time: "",
       location: "",
       description: "",
+      isCompleted: false,
     }
   );
 
@@ -34,11 +35,11 @@ const UpdateEvent = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!eventData.id) return; // Add validation
+    if (!eventData.id) return;
 
     updateEvent(eventData);
     alert("Event updated successfully!");
-    navigate("/ViewEvent"); // Fixed typo in path (was "/VeweEvent")
+    navigate("/ViewEvent");
   };
 
   if (!eventToEdit) {
@@ -78,7 +79,7 @@ const UpdateEvent = () => {
                 type={type}
                 id={id}
                 name={id}
-                value={eventData[id as keyof typeof eventData] || ""}
+                value={String(eventData[id as keyof typeof eventData] || "")}
                 onChange={handleChange}
                 required
                 className="mt-1 block w-full rounded-md border border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 p-2"

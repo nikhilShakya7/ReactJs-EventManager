@@ -11,7 +11,7 @@ import {
 import { Link } from "react-router-dom";
 
 const ViewEvents: React.FC = () => {
-  const { events, deleteEvent } = useEvents();
+  const { events, deleteEvent, toggleEventCompletion } = useEvents();
   const handleDelete = (id: string) => {
     if (confirm("Are you sure you want to delete this event?")) {
       deleteEvent(id);
@@ -52,10 +52,14 @@ const ViewEvents: React.FC = () => {
         </div>
       ) : (
         <div className="space-y-4">
-          {events.map((event, index) => (
+          {events.map((event) => (
             <div
-              key={index}
-              className="bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow duration-200 overflow-hidden border border-gray-100"
+              key={event.id}
+              className={`bg-white rounded-l-lg shadow-sm overflow-hidden border-l-6 ${
+                event.isCompleted
+                  ? "border-green-600 bg-green-600"
+                  : "border-red-400 bg-red-400"
+              }`}
             >
               <div className="p-6">
                 <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-4">
@@ -63,6 +67,16 @@ const ViewEvents: React.FC = () => {
                     {event.title}
                   </h3>
                   <div className="flex items-center space-x-2">
+                    <button
+                      onClick={() => toggleEventCompletion(event.id)}
+                      className={`px-3 py-1 text-xs font-medium rounded-full ${
+                        event.isCompleted
+                          ? "bg-green-100 text-green-800"
+                          : "bg-yellow-100 text-yellow-800"
+                      }`}
+                    >
+                      {event.isCompleted ? "Completed" : "Mark Complete"}
+                    </button>
                     <span className="bg-blue-100 text-blue-800 text-xs font-medium px-2.5 py-0.5 rounded-full">
                       {new Date(event.date).toLocaleDateString("en-US", {
                         weekday: "short",
@@ -91,7 +105,7 @@ const ViewEvents: React.FC = () => {
                     <CalendarClock className="text-gray-600 h-5 w-5" />{" "}
                     <div>
                       <p className="text-sm text-gray-500">Date & Time</p>
-                      <p className="font-medium text-gray-700">
+                      <p className="font-medium text-gray-700 text-center">
                         {new Date(event.date).toLocaleDateString()} at{" "}
                         {event.time}
                       </p>
@@ -100,10 +114,14 @@ const ViewEvents: React.FC = () => {
 
                   <div className="flex items-start space-x-2">
                     <Info className="h-5 w-5 text-gray-500" />
-                    <div>
-                      <p className="text-sm text-gray-500">Status</p>
-                      <p className="font-medium text-gray-700">Upcoming</p>
-                    </div>
+
+                    <p
+                      className={`font-medium ${
+                        event.isCompleted ? "text-green-600" : "text-black"
+                      }`}
+                    >
+                      {event.isCompleted ? "Completed" : "Upcoming"}
+                    </p>
                   </div>
                 </div>
 

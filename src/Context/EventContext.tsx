@@ -8,14 +8,19 @@ type EventData = {
   time: string;
   location: string;
   description: string;
+  isCompleted: boolean;
 };
 
-type EventInput = Omit<EventData, "id">;
+type EventInput = Omit<EventData, "id"> & {
+  isCompleted: boolean;
+};
 
 type EventContextType = {
   events: EventData[];
   addEvent: (event: EventInput) => void;
   deleteEvent: (id: string) => void;
+  toggleEventCompletion: (id: string) => void;
+
   updateEvent: (updatedEvent: EventData) => void;
 };
 
@@ -25,6 +30,13 @@ export const EventProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
   const [events, setEvents] = useState<EventData[]>([]);
+  () => {
+    if (typeof window !== "undefined") {
+      const saved = localStorage.getItem("events");
+      return saved ? JSON.parse(saved) : [];
+    }
+    return [];
+  };
 
   const addEvent = (event: EventInput) => {
     const newEvent: EventData = { ...event, id: uuidv4() };
@@ -39,10 +51,23 @@ export const EventProvider: React.FC<{ children: React.ReactNode }> = ({
       prev.map((event) => (event.id === updatedEvent.id ? updatedEvent : event))
     );
   };
+  const toggleEventCompletion = (id: string) => {
+    setEvents((prev) =>
+      prev.map((event) =>
+        event.id === id ? { ...event, isCompleted: !event.isCompleted } : event
+      )
+    );
+  };
 
   return (
     <EventContext.Provider
-      value={{ events, addEvent, deleteEvent, updateEvent }}
+      value={{
+        events,
+        addEvent,
+        deleteEvent,
+        updateEvent,
+        toggleEventCompletion,
+      }}
     >
       {children}
     </EventContext.Provider>
