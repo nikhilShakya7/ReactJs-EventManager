@@ -23,6 +23,7 @@ const AddEvent: React.FC = () => {
     time: "",
     location: "",
     description: "",
+    isCompleted: false,
   });
 
   const handleChange = useCallback(

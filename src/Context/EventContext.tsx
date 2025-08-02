@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState } from "react";
+import React, { createContext, useContext, useEffect, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 
 type EventData = {
@@ -29,15 +29,16 @@ const EventContext = createContext<EventContextType | undefined>(undefined);
 export const EventProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
-  const [events, setEvents] = useState<EventData[]>([]);
-  () => {
+  const [events, setEvents] = useState<EventData[]>(() => {
     if (typeof window !== "undefined") {
-      const saved = localStorage.getItem("events");
-      return saved ? JSON.parse(saved) : [];
+      const stored = localStorage.getItem("events");
+      return stored ? JSON.parse(stored) : [];
     }
     return [];
-  };
-
+  });
+  useEffect(() => {
+    localStorage.setItem("events", JSON.stringify(events));
+  }, [events]);
   const addEvent = (event: EventInput) => {
     const newEvent: EventData = { ...event, id: uuidv4() };
     setEvents((prev) => [...prev, newEvent]);
