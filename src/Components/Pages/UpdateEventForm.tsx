@@ -64,10 +64,15 @@ const UpdateEvent = () => {
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
           {[
             { id: "title", label: "Event Title", type: "text" },
-            { id: "date", label: "Date", type: "date" },
+            {
+              id: "date",
+              label: "Date",
+              type: "date",
+              min: new Date().toISOString().split("T")[0],
+            },
             { id: "time", label: "Time", type: "time" },
             { id: "location", label: "Location", type: "text" },
-          ].map(({ id, label, type }) => (
+          ].map(({ id, label, type, min }) => (
             <div key={id}>
               <label
                 htmlFor={id}
@@ -82,6 +87,7 @@ const UpdateEvent = () => {
                 value={String(eventData[id as keyof typeof eventData] || "")}
                 onChange={handleChange}
                 required
+                min={min}
                 className="mt-1 block w-full rounded-md border border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 p-2"
               />
             </div>

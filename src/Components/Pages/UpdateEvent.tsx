@@ -5,24 +5,19 @@ import {
   CalendarClock,
   Info,
   MapPin,
-  Trash,
   CheckCircle,
 } from "lucide-react";
 import { Link } from "react-router-dom";
 
 const DeleteEvent: React.FC = () => {
-  const { events, deleteEvent } = useEvents();
+  const { events } = useEvents();
 
-  const handleDelete = (id: string) => {
-    if (confirm("Are you sure you want to delete this event?")) {
-      deleteEvent(id);
-    }
-  };
+  //const handleUpdate = (id: string) => {};
 
   return (
     <div className="max-w-4xl mx-auto p-4 sm:p-6">
       <div className="flex justify-between items-center mb-8">
-        <h2 className="text-3xl font-bold text-gray-800">Events</h2>
+        <h2 className="text-3xl font-bold text-gray-800">Update Event </h2>
         <div className="flex items-center gap-4">
           <span className="bg-blue-100 text-blue-800 text-sm font-medium px-3 py-1 rounded-full">
             {events.length} {events.length === 1 ? "Event" : "Events"}
@@ -73,13 +68,6 @@ const DeleteEvent: React.FC = () => {
                         </span>
                       )}
                     </h3>
-                    <button
-                      onClick={() => handleDelete(event.id)}
-                      className="p-2 text-gray-500 hover:text-red-500 transition-colors"
-                      aria-label="Delete event"
-                    >
-                      <Trash className="w-5 h-5" />
-                    </button>
                   </div>
 
                   <div className="flex flex-wrap gap-2">
@@ -131,7 +119,7 @@ const DeleteEvent: React.FC = () => {
 
                   <div className="flex justify-end gap-4 mt-6">
                     <Link to={`/UpdateEventForm/${event.id}`}>
-                      <button className="flex items-center justify-center gap-2 px-4 py-2 text-sm font-semibold w-full text-white bg-red-500 hover:bg-red-600 cursor-pointer rounded-md shadow-md">
+                      <button className="flex items-center justify-center gap-2 px-4 py-2 text-sm font-semibold w-full text-white bg-green-500 hover:bg-green-600 cursor-pointer rounded-md shadow-md">
                         Update
                       </button>
                     </Link>

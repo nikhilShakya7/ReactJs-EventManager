@@ -16,6 +16,7 @@ const AddEvent: React.FC = () => {
   const navigate = useNavigate();
   const { addEvent } = useEvents();
   const [events, setEvents] = useState<EventData[]>([]);
+  console.log(events);
 
   const [eventData, setEventData] = useState<EventData>({
     title: "",
