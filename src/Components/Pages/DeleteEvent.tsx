@@ -9,6 +9,7 @@ import {
   CheckCircle,
 } from "lucide-react";
 import { Link } from "react-router-dom";
+import toast from "react-hot-toast";
 
 const DeleteEvent: React.FC = () => {
   const { events, deleteEvent } = useEvents();
@@ -16,6 +17,7 @@ const DeleteEvent: React.FC = () => {
   const handleDelete = (id: string) => {
     if (confirm("Are you sure you want to delete this event?")) {
       deleteEvent(id);
+      toast.success("Event deleted successfully!", { position: "top-right" });
     }
   };
 

@@ -6,9 +6,12 @@ import DeleteEvent from "./Components/Pages/DeleteEvent";
 import UpdateEventForm from "./Components/Pages/UpdateEventForm";
 import UpdateEvent from "./Components/Pages/UpdateEvent";
 import Layout from "./Components/Layout";
+import { Toaster } from "react-hot-toast";
 const App = () => {
   return (
     <>
+      <Toaster position="top-right" />
+
       <Layout>
         <Routes>
           <Route path="/" element={<Home />} />

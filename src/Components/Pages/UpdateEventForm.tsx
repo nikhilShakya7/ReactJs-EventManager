@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useEvents } from "../../Context/EventContext";
+import toast from "react-hot-toast";
 
 const UpdateEvent = () => {
   const { id } = useParams();
@@ -38,8 +39,8 @@ const UpdateEvent = () => {
     if (!eventData.id) return;
 
     updateEvent(eventData);
-    alert("Event updated successfully!");
     navigate("/ViewEvent");
+    toast.success("Event updated successfully!", { position: "top-right" });
   };
 
   if (!eventToEdit) {

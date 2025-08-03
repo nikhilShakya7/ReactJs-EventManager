@@ -2,6 +2,7 @@ import React, { useState, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import { useEvents } from "../../Context/EventContext";
 import { v4 as uuidv4 } from "uuid";
+import toast, { Toaster } from "react-hot-toast";
 
 type EventData = {
   title: string;
@@ -42,8 +43,8 @@ const AddEvent: React.FC = () => {
       addEvent(eventWithId);
       setEvents((prev) => [...prev, eventWithId]);
       console.log("Event submitted:", eventWithId);
-      alert("Event created successfully!");
       navigate("/ViewEvent");
+      toast.success("Event added successfully!", { position: "top-right" });
     },
     [eventData, addEvent, navigate]
   );
