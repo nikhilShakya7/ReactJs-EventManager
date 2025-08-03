@@ -40,6 +40,6 @@ npm run build
 
 
 ## 🔗Project Link
-https://react-js-event-manager-bofh.vercel.app/
+https://react-js-event-manager.vercel.app/
 
 
