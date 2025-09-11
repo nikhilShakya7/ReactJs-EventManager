@@ -29,7 +29,6 @@ git clone https://github.com/nikhilShakya7/ReactJs-EventManager.git
 
 ```bash
 npm install
-
 ```
 
 ### 3. Run the development server
