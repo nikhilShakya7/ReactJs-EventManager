@@ -4,6 +4,7 @@ A simple and interactive event management web application built with React, Type
 
 ## 🚀 Features
 
+
 - Add, update, delete, and complete events
 - Persistent storage using localStorage
 - Clean UI with Tailwind CSS
